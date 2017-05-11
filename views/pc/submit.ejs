@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-CN">
+    <meta http-equiv="Content-Type" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>有求必应金融-中小企业贷款撮合平台</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <% include ../context.ejs %>
+    <link rel="shortcut icon" href="<%= web_domain %>/favicon.ico">
+    <link rel="stylesheet" href="<%= web_domain %>/css/pc/layout.css">
+    <script type="text/javascript" src="<%= web_domain %>/js/jquery.js"></script>
+    <script type="text/javascript" src="<%= web_domain %>/js/pc/submit.js"></script>
+    <script type="text/javascript" src="<%= web_domain %>/js/jquery.form.js"></script>
+    <script type="text/javascript" src="<%= web_domain %>/js/upload.js"></script>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="<%= web_domain%>/js/pc/html5shiv.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="<%= web_domain%>/js/pc/jquery.countdown.js"></script>
+    <script type="text/javascript">
+        //上传文件
+        function uploadcallback(prefix, data) {
+            $("#imgId_" + prefix).attr("src", "<%= image_path%>" + "/" + data);
+            $("#imgId_" + prefix).show();
+            $("#" + prefix + "").attr("value", data);
+        }
+        $(function () {
+            //args[0] prefix; args[1] filename; args[2] uploadFormDiv(just one hidden);args[3] callback;
+            new upload("avatar_upload", "activity", "uploadFormDiv", uploadcallback).render();
+        });
+
+    </script>
+</head>
+<body>
+<% include ../pc/header.ejs %>
+<section class="main">
+    <input type="hidden" id="activityId" value="<%= id%>"/>
+    <div class="menu">
+        <a href="<%= web_domain %>/pc/index?id=<%= id %>">活动首页</a>
+        <a href="<%= web_domain %>/pc/rules?id=<%= id %>">活动规则</a>
+        <a href="<%= web_domain %>/pc/shows?id=<%= id %>">作品秀</a>
+        <a href="<%= web_domain %>/pc/submit?id=<%= id %>" class="cur">我要投稿</a>
+    </div>
+
+    <div class="maincontent">
+        <div class="mainList">
+            <div class="mainListTitle">
+                <span>参加活动</span>
+            </div>
+            <!--start-->
+            <div class="mainListcon stepOption" style="display: block;">
+                <div class="steps step1"></div>
+                <div class="stepsContent">
+                    <div class="stepsItem">
+                        <span>品牌传播文案主题：</span><input id="title" name="title" type="text" class="stepText valueLimit"
+                                                     value="" maxlength="20"><em><i>*</i><b
+                                    class="errorInfo">限20字数以内</b></em>
+                    </div>
+                    <div class="stepsItem">
+                        <span>品牌传播文案内容：</span><textarea id="content" name="content" class="textareaLimit"
+                                                        maxlength="500"></textarea><em><i>*</i><b class="errorInfo">限500字数以内</b></em>
+                    </div>
+                    <div class="stepsItem">
+                        <input type="button" class="stepButton stepNext marginLeft" value="下一步" id="uploadZuoPin">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mainListcon stepOption">
+                <div class="steps step2"></div>
+                <div class="stepsContent">
+                    <div class="itemError">你提交的个人信息仅用于发放奖品，请如实填写。</div>
+                    <div class="stepsItem">
+                        <span class="width100">真实姓名：</span><input id="userName" name="userName" type="text" class="stepText width240" value="">
+                        <em><b class="errorInfo"></b></em>
+                    </div>
+                    <div class="stepsItem">
+                        <span class="width100">上传头像：</span>
+                        <span class="uploadImg">
+                                <div class="uploadAvatar">
+                                    <img id="imgId_avatar_upload" src="">
+                                    <input type="hidden" id="avatar_upload" name="avatar" value=""/>
+                                </div>
+                                <input id="avatar_uploadBtn" class="pressBtn" type="button" value="上传头像">
+                        </span>
+                        <em><i>*</i>请上传png、jpg、jpeg、bmp格式图片，大小不超过2M;</em>
+                    </div>
+                    <!--<div class="stepsItem">-->
+                    <!--<span class="width100">地址：</span>-->
+                    <!--<span class="addressItem">-->
+                    <!--<select><option>省份</option></select>-->
+                    <!--<select><option>城市</option></select>-->
+                    <!--<select><option>地区</option></select>-->
+                    <!--<input type="text" class="stepText width240" placeholder="请输入..." value="">-->
+                    <!--</span>-->
+                    <!--</div>-->
+                    <div class="stepsItem">
+                        <span class="width100">手机号码：</span>
+                        <input id="phoneNo" name="phoneNo" maxlength="11" type="text" class="stepText width240" value="">
+                        <em><b class="errorInfo"></b></em>
+                    </div>
+                    <div class="stepsItem">
+                        <span class="width100">验证码：</span>
+                        <input id="mobileCodeInput" maxlength="6" type="text" class="stepText width124" value="">
+                        <input id="mobileCodeBtn" type="button" class="pressBtn getCode" value="获取验证码">
+                        <em><b class="errorInfo"></b></em>
+                    </div>
+                    <div class="stepsItem">
+                        <input type="button" class="stepButton stepPrev margin100" value="上一步">
+                        <input type="button" class="stepButton stepNext" value="下一步" id="userInfo">
+                    </div>
+                    <br><br><br><br><br>
+                </div>
+            </div>
+            <!-- 最终确认信息 -->
+            <div class="mainListcon stepOption">
+                <div class="steps step3"></div>
+                <div class="stepsContent">
+                    <div class="infoTable">
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td width="130">标 题：</td>
+                                <td><b id="title_c"></b></td>
+                            </tr>
+                            <tr>
+                                <td>内 容：</td>
+                                <td>
+                                    <p id="content_c">
+
+                                    </p>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>真实姓名：</td>
+                                <td><p id="userName_c"></p></td>
+                            </tr>
+                            <tr>
+                                <td>头像：</td>
+                                <td>
+                                    <div class="avatarImg" style="margin: 0;">
+                                        <img id="avatarImg_c" src="" data-bd-imgshare-binded="1">
+                                        <span class="avatarImgWrap"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>手机号码：</td>
+                                <td><p id="phoneNo_c"></p></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="stepsItem"><br>
+                        <input type="button" class="stepButton stepPrev" value="上一步">
+                        <input type="button" class="stepButton stepNext" value="确认提交" id="submitInfo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mainListcon stepOption">
+                <div class="steps step4"></div>
+                <div class="stepsContent">
+                    <div class="stepSuccess">
+                        <h3>恭喜提交成功！</h3>
+
+                        <p>竞争这么激烈，快邀请小伙伴来为你投票，别让苹果真金逃出手心~</p>
+
+                        <div class="stepVote">
+                            邀请小伙伴投票：
+                            <div onmouseover="setShare('如何在一个页面中添加多组分享代码', 'http://www.jiathis.com/help/html/add-more-icons/');">
+                                <!--自定义第一个分享标题和链接-->
+                                <!-- JiaThis Button BEGIN -->
+                                <div class="jiathis_style">
+                                    <a href="http://www.jiathis.com/share" class="jiathis jtico jtico_jiathis"
+                                       style="display: inline-block !important;vertical-align: middle;"
+                                       target="_blank"></a>
+                                    <a class="jiathis_button_qzone"></a>
+                                    <a class="jiathis_button_tsina"></a>
+                                    <a class="jiathis_button_weixin"></a>
+                                    <a class="jiathis_button_tqq"></a>
+                                </div>
+                                <!-- JiaThis Button END -->
+                            </div>
+                            <!--end share-->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--end-->
+
+        </div>
+    </div>
+</section>
+<% include ../pc/footer.ejs %>
+<!--单页面使用多分享按钮需要增加的分享参数代码-->
+<% include ../jiathis.ejs %>
+<div id="uploadFormDiv">
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+  "hostname": "192.168.40.220",
+  "username": "youboy",
+  "password": "youboy123",
+  "database": "youboy_finance",
+  "port": 3306,
+  "poolSize": 10,
+  "maxConnLimit": 20,
+  "charset": "UTF8",
+  "web_domain": "http://localhost/activity",
+  "image_path": "http://localhost/store",
+  "image_fs": "http://localhost/fs",
+  "redis_port":"6379",
+  "redis_host":"192.168.40.228",
+  "today_mobile_count":50,
+  "today_ip_count":50,
+  "interval_second":60
+}

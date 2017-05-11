@@ -1,0 +1,13 @@
+{
+  "hostname": "192.168.40.220",
+  "username": "youboy",
+  "password": "youboy123",
+  "database": "youboy_finance",
+  "port": 3306,
+  "poolSize": 10,
+  "maxConnLimit": 20,
+  "charset": "UTF-8",
+  "web_domain": "http://localhost/activity",
+  "image_path": "http://localhost/store",
+  "image_fs": "http://localhost/fs"
+}

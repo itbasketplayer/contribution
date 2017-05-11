@@ -1,0 +1,49 @@
+<% if (page.allPages > 0) {
+    var showPageNum = 5;
+
+    var beginPageIndex = (page.pageNo <= parseInt(showPageNum / 2) + 1 ? 1 : (page.pageNo - parseInt(showPageNum / 2)));
+    var endPageIndex = (beginPageIndex + showPageNum - 1 >= page.allPages ? page.allPages : beginPageIndex + showPageNum - 1);
+    if (beginPageIndex >= page.allPages)
+        beginPageIndex = endPageIndex - showPageNum + 1;
+    if (beginPageIndex < 1)
+        beginPageIndex = 1;
+    if (page.pageNo >= page.allPages)
+        page.pageNo = page.allPages;
+%>
+<form id="pageForm" method="get">
+<!-- 第一页 -->
+<% if (page.pageNo == 1) { %>
+    <span class="cur">首页</span>
+<% }else { %>
+    <a href="javascript:jr.jumpPage(1)">首页</a>
+<% } %>
+    <!-- 上一页 -->
+    <% if (page.pageNo == 1) { %>
+    <span class="cur">上一页</span>
+    <% }else if(page.pageNo > 1) { %>
+    <a href="javascript:jr.jumpPage(<%= page.pageNo - 1 %>)">上一页</a>
+    <% } %>
+    <!-- 页码部分 -->
+<%
+for (var i = beginPageIndex; i <= endPageIndex; i++) {
+if(i == page.pageNo){
+%>
+<span class="cur"><%= i %></span>
+<%
+}else{
+%>
+<a href="javascript:jr.jumpPage(<%= i %>)"><%= i %></a>
+<% }} %>
+    <!-- 下一页 -->
+    <% if (page.pageNo == page.allPages) { %>
+    <span class="cur">下一页</span>
+    <% }else if(page.pageNo < page.allPages) { %>
+    <a href="javascript:jr.jumpPage(<%= page.pageNo + 1 %>)">下一页</a>
+    <% } %>
+<!-- 最后一页 -->
+<% if (page.pageNo == page.allPages) { %>
+    <span class="cur">末页</span>
+<% }else { %>
+    <a href="javascript:jr.jumpPage(<%= page.allPages %>)">末页</a>
+<% }} %>
+</form>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8"/>
+    <title>有求必应金融-中小企业贷款撮合平台</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <script type="text/javascript" charset="utf-8" src="/ueditor/editor_config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/ueditor/editor_all_min.js"></script>
+    <link rel="stylesheet" href="/ueditor/themes/default/ueditor.css" />
+
+</head>
+
+<body>
+<form method="post" id="form" action="<%= web_domain %>/pc/ueditor">
+    <table width="800" border="0" cellspacing="0" cellpadding="4" style="line-height:32PX; margin-left:20px; margin-top:25px;">
+
+        <tr>
+            <td>内容：</td>
+            <td><script type="text/plain" id="myEditor" name="contents" style="width:600px"></script></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <input type="submit" name="Submit" value="提交" class="but02" /></td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+    var editor_a = new baidu.editor.ui.Editor({
+        minFrameHeight : 150,
+        imagePath : "<%= web_domain %>/"
+    });
+    editor_a.addListener("beforePaste",function(type,data){
+        //beforePaste事件监听区别于afterPaste事件监听最主要的一个方面是存在一个data参数，
+        //该data参数是一个对象，包含属性html。
+        //若用户在此处更改该html的值时，将会影响粘贴到编辑器中的内容,主要用于粘贴时需要特殊处理的一些场景。
+        //before事件才用这个参数，用来在写出编辑器之前对粘贴进来的内容进行最后的修改
+        data.html = data.html.replace( /style=(["'])([^\2]*?)\1/gi,"").replace(/class=(["'])([^\2]*?)\1/gi,"");
+        //保证图片宽度为640
+        data.html = data.html.replace(/(<img[^>]*?)height=(["'])([^\2]*?)\2/gi,"$1");
+        data.html = data.html.replace(/(<img[^>]*?)width=(["'])([^\2]*?)\2/gi,"$1");
+        data.html = data.html.replace(/<img/gi,"<img style=\"max-width:640px;_width:expression(this.width > 640 ? '640px' :this.width);\" ");
+        //保证表格宽度小于648
+        data.html = data.html.replace(/(<table[^>]*?)width=(["'])([^\2|^%]*?)\2/gi,"$1 style=\"max-width:648px;_width:expression(this.width > 648 ? '648px' :this.width);\" ");
+    });
+    editor_a.render('myEditor');
+</script>
+</body>
+</html>

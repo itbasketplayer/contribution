@@ -1,0 +1,40 @@
+<!--单页面使用多分享按钮需要增加的分享参数代码-->
+<script type="text/javascript">
+    var jiathis_config = {
+        id:"",
+        url: "",
+        title: "",
+        evt: {
+            "share": "addShareRecord"
+        }
+    }
+
+    function setShare(title, url, cid) {
+        jiathis_config.title = title;
+        jiathis_config.url = url;
+        jiathis_config.cid = cid;
+    }
+    function addShareRecord(evt) {
+        var url = evt.data.url;
+        var source = evt.data.service;
+
+        $.ajax({
+            url : "<%= web_domain%>/pc/share",
+            type : "POST",
+            dataType:"json",
+            data:{
+                "cid":jiathis_config.cid,
+                "channel":evt.data.service
+            },
+            success : function(data) {
+                if(data){
+                    alert("success");
+                }
+            }
+        });
+    }
+</script>
+<!--分享参数代码结束-->
+<!--分享功能代码统一放到页尾-->
+<script type="text/javascript" src="http://v1.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!--分享功能代码结束-->
